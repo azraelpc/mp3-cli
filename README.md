@@ -8,7 +8,7 @@ A lightweight, zero-configuration command-line Python tool to search for YouTube
 - **Interactive Search**: Prompt fallback if run without arguments.
 - **Smart Filtering**: Automatically filters out videos longer than 10 minutes (e.g., podcasts, streams).
 - **Clean Output**: Mutes generic verbose logs, displaying only a clean, native download progress bar.
-- **Automated Explorer Launch**: Post-download prompt to instantly open the destination folder.
+- **Post-Download Options**: Options to download folder / play song / copy path to clipboard / exit.
 - **Help Interface**: Clean manual available using `-H`, `-h`, or `--help` flags.
 
 ## Prerequisites (Important!)
