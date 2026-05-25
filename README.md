@@ -1,4 +1,4 @@
-# YouTube to MP3 Downloader
+# YouTube to MP3 Downloader (CLI)
 
 A lightweight, zero-configuration command-line Python tool to search for YouTube videos, filter out long content, and download the audio directly as high-quality MP3 files. It utilizes your system's native environment to securely bypass JavaScript challenges and bot detection without needing browser cookies.
 
