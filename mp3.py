@@ -5,9 +5,9 @@ import urllib.parse
 from yt_dlp import YoutubeDL
 
 HELP_TEXT = """
-====================================================================
-YOUTUBE MP3 DOWNLOADER - HELP
-====================================================================
+==================================
+AZ's YOUTUBE MP3 DOWNLOADER - HELP
+==================================
 Usage:
   python mp3.py [search terms]
 
@@ -16,7 +16,7 @@ Examples:
   python mp3.py andy hunter go
 
 If you run the script without parameters, it will prompt you for them.
-====================================================================
+======================================================================
 """
 
 def display_header():
@@ -106,11 +106,13 @@ def search_and_download_audio():
             print(f"\nPreparing download for: {chosen_video.get('title')}\n")
 
             # 4. Streamlined native execution with progress bar only
+            outtmpl = "%(title)s.%(ext)s"
             command = [
                 "yt-dlp",
                 "-x",                       # Extract audio
                 "--audio-format", "mp3",    # Target format
                 "--audio-quality", "192K",  # Quality setting
+                "-o", outtmpl,              # Output template
                 "--quiet",                  # Mutes backend network/signature logs
                 "--no-warnings",            # Disables generic warnings
                 "--progress",               # Forces the dynamic progress bar display
@@ -120,13 +122,45 @@ def search_and_download_audio():
             subprocess.run(command, check=True)
             print("\nDownload and MP3 conversion completed successfully.")
             
-            # 5. Post-download prompt to open destination folder
-            open_folder = input("Do you want to open the destination folder? (y/n): ").strip().lower()
-            if open_folder in ["y", "yes"]:
-                # Executes 'start .' safely via the shell on Windows
-                os.system("start .")
+            # 5. Obtener la ruta del archivo generado de forma local (sin peticiones de red)
+            filename_command = ["yt-dlp", "--get-filename", "-o", outtmpl, video_url]
+            filename_bytes = subprocess.check_output(filename_command, stderr=subprocess.DEVNULL)
+            filename_str = filename_bytes.decode('utf-8', errors='ignore').strip()
+            
+            # Cambiamos la extensión simulada a .mp3
+            mp3_filename = os.path.splitext(filename_str)[0] + ".mp3"
+            full_path = os.path.abspath(mp3_filename)
 
-            print("")
+            # 6. Menú final de opciones alternativas
+            print("\nWhat would you like to do next?")
+            print(" [p] Play song with default MP3 player")
+            print(" [f] Open the current folder")
+            print(" [c] Copy file path to clipboard")
+            print(" [Enter] Exit without doing anything")
+            
+            action = input("\nSelect an option: ").strip().lower()
+
+            if action == 'p':
+                if os.path.exists(full_path):
+                    print(f"Playing: {mp3_filename}")
+                    os.system(f'start "" "{full_path}"')
+                else:
+                    print("[!] File not found to play.")
+            
+            elif action == 'f':
+                os.system("start .")
+            
+            elif action == 'c':
+                try:
+                    subprocess.run("clip", input=full_path, text=True, check=True)
+                    print("[+] File path successfully copied to clipboard.")
+                except Exception:
+                    print("[!] Failed to copy path to clipboard.")
+            
+            elif action == '':
+                print("Exiting as requested.")
+            else:
+                print("Option not recognized. Exiting.")
 
     except subprocess.CalledProcessError:
         print("\n[!] An error occurred during the download process.")
@@ -134,4 +168,12 @@ def search_and_download_audio():
         print(f"\n[!] An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
-    search_and_download_audio()
+    try:
+        search_and_download_audio()
+        print("\nClosing script.")
+    except KeyboardInterrupt:
+        print("\n\n[!] Operation cancelled by user. Exiting.")
+        try:
+            sys.exit(130)
+        except SystemExit:
+            os._exit(130)
