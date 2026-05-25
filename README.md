@@ -25,12 +25,6 @@ Before running the script, ensure you have the following installed and configure
 1. Clone or download `mp3.py` to your desired working directory.
 2. Install the `yt-dlp` library using `pip`:
 
-```
-function test() {
-  console.log("notice the blank line before this function?");
-}
-```
-
 ```bash
 pip install yt-dlp
 ```
