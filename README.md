@@ -11,7 +11,7 @@ A lightweight, zero-configuration command-line Python tool to search for YouTube
 - **Automated Explorer Launch**: Post-download prompt to instantly open the destination folder.
 - **Help Interface**: Clean manual available using `-H`, `-h`, or `--help` flags.
 
-## Prerequisites
+## Prerequisites (Important!)
 
 Before running the script, ensure you have the following installed and configured in your system's `PATH`:
 
