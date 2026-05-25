@@ -25,16 +25,22 @@ Before running the script, ensure you have the following installed and configure
 1. Clone or download `mp3.py` to your desired working directory.
 2. Install the `yt-dlp` library using `pip`:
 
-\`\`\`bash
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
+
+```bash
 pip install yt-dlp
-\`\`\`
+```
 
 3. Verify that `ffmpeg` and `deno` (or `node`) are accessible from your terminal:
 
-\`\`\`bash
+```bash
 ffmpeg -version
 deno --version
-\`\`\`
+```
 
 ## Usage
 
@@ -42,29 +48,29 @@ deno --version
 
 Pass your search terms directly as arguments following the script name:
 
-\`\`\`bash
+```bash
 python mp3.py shakira the one
-\`\`\`
+```
 
-\`\`\`bash
+```bash
 python mp3.py andy hunter go
-\`\`\`
+```
 
 ### Interactive Mode
 
 Run the script without arguments to be prompted for search terms:
 
-\`\`\`bash
+```bash
 python mp3.py
-\`\`\`
+```
 
 ### Help Menu
 
 Display the help interface and usage examples:
 
-\`\`\`bash
+```bash
 python mp3.py --help
-\`\`\`
+```
 
 ## How It Works
 
