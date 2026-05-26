@@ -29,6 +29,12 @@ Before running the script, ensure you have the following installed and configure
 pip install yt-dlp
 ```
 
+2b. Ensure you have the latest yt_dlp version!
+
+```bash
+pip install -U yt_dlp
+```
+
 3. Verify that `ffmpeg` and `deno` (or `node`) are accessible from your terminal:
 
 ```bash
